@@ -1,4 +1,6 @@
 part of 'register_bloc.dart';
 
 @immutable
-sealed class RegisterEvent {}
+abstract class RegisterEvent {}
+
+class RegisterInitialEvent extends RegisterEvent {}
