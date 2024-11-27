@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/features/Landing/bloc/landing_bloc.dart';
 import 'package:untitled/features/Register/ui/register_page.dart';
+import '../../Login/ui/login_page.dart';
 
 class LandingPage extends StatelessWidget {
   final LandingBloc landingBloc = LandingBloc();
 
-  // void
+  LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LandingBloc, LandingState>(
       bloc: landingBloc,
       listenWhen: (previous, current) => current is LandingActionState,
-      // buildWhen: ,
+      buildWhen: (previous,current)=> current is LandingInitialState,
       listener: (context, state) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => RegisterPage()));
+        if(state is RegisterWithOTPState){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
+        }
+        else if( state is LoginWithOTPState){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -25,7 +30,7 @@ class LandingPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'SAFE',
                     style: TextStyle(
                         color: Colors.red,
@@ -49,13 +54,13 @@ class LandingPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {landingBloc.add(RegisterWithOTPEvent());},
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red.shade700,
-                            fixedSize: Size(50, 20),
+                            fixedSize: const Size(50, 20),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12))),
-                        child: Text(
+                        child: const Text(
                           'Register',
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
@@ -65,13 +70,13 @@ class LandingPage extends StatelessWidget {
                         width: 10,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {landingBloc.add(LoginWithOTPEvent());},
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red.shade700,
-                            fixedSize: Size(50, 20),
+                            fixedSize: const Size(50, 20),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12))),
-                        child: Text(
+                        child: const Text(
                           'Login with OTP',
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),

@@ -3,6 +3,10 @@ part of 'landing_bloc.dart';
 @immutable
 abstract class LandingState {}
 
-final class LandingInitial extends LandingState {}
+class LandingInitialState extends LandingState{}
 
-class LandingActionState extends LandingState {}
+class LandingActionState extends LandingInitialState {}
+
+class RegisterWithOTPState extends LandingActionState{}
+
+class LoginWithOTPState extends LandingActionState{}

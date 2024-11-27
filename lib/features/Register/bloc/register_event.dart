@@ -4,3 +4,5 @@ part of 'register_bloc.dart';
 abstract class RegisterEvent {}
 
 class RegisterInitialEvent extends RegisterEvent {}
+
+class RegisterActionEvent extends RegisterEvent{}
